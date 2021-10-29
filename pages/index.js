@@ -46,6 +46,14 @@ const Disconnect =()=>{
 const switchChain=(v)=>{
   window.ethereum.request({ method: 'eth_requestAccounts'});
   window.ethereum.request({ method: 'wallet_switchEthereumChain', params:[{chainId: web3.utils.numberToHex(v)}]});
+  
+  try{
+    activate(injected);
+    }catch(e){
+      console.error('Connect',e)
+    }finally{
+      setDisplay("block")
+    }
 }
 
   return (
