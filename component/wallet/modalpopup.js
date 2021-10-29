@@ -2,11 +2,10 @@ import * as React from 'react';
 import Box from '@mui/material/Box';
 import Modal from '@mui/material/Modal';
 import Button from '@mui/material/Button';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import Typography from '@mui/material/Typography';
-
+import List from '@mui/material/List';
+import ListItem from '@mui/material/ListItem';
+import ListItemText from '@mui/material/ListItemText';
+import ListSubheader from '@mui/material/ListSubheader';
 
 
 const style = {
@@ -30,6 +29,10 @@ export const ModalPopup=(props)=>{
     props.setClose(false);
   };
 
+  const switchChain =async ()=>{
+    
+  }
+
   return (
       <>
       <Modal
@@ -39,37 +42,31 @@ export const ModalPopup=(props)=>{
         aria-describedby="parent-modal-description"
       >
         <Box sx={{ ...style, width: 400 }}>
-            
-            {
-            props.data&&props.data.map((chain,i)=>{
-                return (
-                    <>
-                       <CardContent>
-     
-      <Typography variant="h5" component="div">
-        {chain.name}
-      </Typography>
-      <Typography sx={{ mb: 1.5 }} color="text.secondary">
-        {chain.chainId}
-      </Typography>
-      <Typography variant="body2">
-        {chain.symbol}
-        <br />
-        {'"a benevolent smile"'}
-      </Typography>
-    </CardContent>
-    <CardActions>
-      <Button size="small">Learn More</Button>
-    </CardActions>
-                    </>
-                )
-            })
-        }
-          <h2 id="parent-modal-title">Text in a modal</h2>
-          <p id="parent-modal-description">
-            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-          </p>
-          <Button onClick={()=>handleClose()}>Close Child Modal</Button>
+        <List
+      sx={{
+        width: '100%',
+        maxWidth: 360,
+        bgcolor: 'background.paper',
+        position: 'relative',
+        overflow: 'auto',
+        maxHeight: 300,
+        '& ul': { padding: 0 },
+      }}
+      subheader={<li />}
+    >
+      {props.data&&props.data.map((chainId,i) => (
+        <li key={`section-${chainId.chain}`}>
+          <ul>
+              <ListItem key={`${chainId.name}`}>
+              <ListSubheader>{` ${chainId.name}`}</ListSubheader>
+                <ListItemText primary={`${chainId.network}`} />
+                <ListItemText primary={`${chainId.chainId}`} />
+              </ListItem>
+              < Button onClick={() =>switchChain(chainId.chainId)}>Select Chain</Button>
+          </ul>
+        </li>
+      ))}
+    </List>
         </Box>
   
       </Modal>

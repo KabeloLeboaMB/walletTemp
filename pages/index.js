@@ -29,21 +29,7 @@ export default function Home() {
   const [open, setOpen] = useState(false);
 
 const Connect =()=>{
-
-  try{
-  activate(injected);
-  window.ethereum.request({
-    method: 'wallet_switchEthereumChain',
-    params: [{ chainId:web3.utils.numberToHex(1)}]
-  });
   setOpen(true)
-  }catch(e){
-    console.error('Connect',e)
-  }finally{
-    setDisplay("block")
-  }
-  
-
 }
 
 const Disconnect =()=>{
@@ -55,7 +41,11 @@ const Disconnect =()=>{
     setDisplay("none")
   }
   
- 
+ const switchChain=async(v)=>{
+  
+    await ethereum.request({ method: 'wallet_switchEthereumChain', params:[{chainId: web3.utils.numberToHex(v)}]});
+    
+ }
 
   
 }
@@ -86,7 +76,7 @@ const Disconnect =()=>{
           ) : null}
         </div>
       </main>
-      <ModalPopup open={open} setClose={setOpen} data={data}/>
+      <ModalPopup open={open} setClose={setOpen} data={data} chainID={(v)=>switchChain(v)}/>
 
       <footer className={styles.footer}>
         <a
