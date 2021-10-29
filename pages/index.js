@@ -43,10 +43,9 @@ const Disconnect =()=>{
 }
 
  
-const switchChain=async(v)=>{
-  
-  await ethereum.request({ method: 'wallet_switchEthereumChain', params:[{chainId: web3.utils.numberToHex(v)}]});
-  
+const switchChain=(v)=>{
+  window.ethereum.request({ method: 'eth_requestAccounts'});
+  window.ethereum.request({ method: 'wallet_switchEthereumChain', params:[{chainId: web3.utils.numberToHex(v)}]});
 }
 
   return (
