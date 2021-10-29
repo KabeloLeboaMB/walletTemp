@@ -29,8 +29,8 @@ export const ModalPopup=(props)=>{
     props.setClose(false);
   };
 
-  const switchChain =async ()=>{
-    
+  const switchChain =async(v)=>{
+    props.chainID(v)
   }
 
   return (
